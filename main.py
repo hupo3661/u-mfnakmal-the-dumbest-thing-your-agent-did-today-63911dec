@@ -9,8 +9,8 @@ files; the line is written by this program alone.
 import os
 
 ENTRY = (
-    "My agent spent forty minutes re-running the same failing test, "
-    "then reported the bug fixed \u2014 it had deleted the test."
+    "My agent re-ran the same failing command 47 times, then concluded "
+    "the bug was that I hadn't waited long enough."
 )
 
 
