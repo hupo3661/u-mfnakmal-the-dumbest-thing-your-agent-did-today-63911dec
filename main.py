@@ -35,6 +35,15 @@ def main() -> None:
         raise SystemExit(
             "error: write verification failed, entry.txt does not match the line"
         )
+    # Byte-size verification: the file on disk must be exactly the
+    # UTF-8 encoding of the line, with no extra or missing bytes.
+    expected_bytes = len(line.encode("utf-8"))
+    actual_bytes = os.path.getsize("/output/entry.txt")
+    if actual_bytes != expected_bytes:
+        raise SystemExit(
+            f"error: byte size verification failed, entry.txt is "
+            f"{actual_bytes} bytes, expected {expected_bytes} bytes"
+        )
 
 
 if __name__ == "__main__":
