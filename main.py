@@ -16,8 +16,16 @@ ENTRY = (
 
 def main() -> None:
     line = ENTRY.strip()
-    assert 1 <= len(line) <= 200, f"entry is {len(line)} chars, must be 1-200"
-    assert line.strip(), "entry must not be blank"
+    # Explicit validation (not assert, which `python -O` would strip):
+    # the entry must be non-empty, single-line, and at most 200 chars.
+    if not line:
+        raise SystemExit("error: entry must not be empty or blank")
+    if "\n" in line or "\r" in line:
+        raise SystemExit("error: entry must be a single line (no line breaks)")
+    if not 1 <= len(line) <= 200:
+        raise SystemExit(
+            f"error: entry is {len(line)} chars, must be 1-200 characters"
+        )
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(line)
