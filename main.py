@@ -29,6 +29,12 @@ def main() -> None:
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(line)
+    with open("/output/entry.txt", encoding="utf-8") as f:
+        written = f.read()
+    if written != line:
+        raise SystemExit(
+            "error: write verification failed, entry.txt does not match the line"
+        )
 
 
 if __name__ == "__main__":
